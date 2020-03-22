@@ -1,12 +1,19 @@
+using System;
+
 namespace Ladeskab
 {
     public class RFIDSimulator : IRFIDReader
     {
-        private int ID; 
-        public int RfidDetected(int id)
+        public event EventHandler<RFIDSimulator> RFIDEvent;
+        public int ID { get; set; }
+        public void RfidDetected(int id)
         {
-            id = ID;
-            return ID; 
+            OnReadRFID(new RFIDSimulator{ID = id});
+        }
+
+        private void OnReadRFID(RFIDSimulator e)
+        {
+            RFIDEvent?.Invoke(this, e);
         }
     }
 }
