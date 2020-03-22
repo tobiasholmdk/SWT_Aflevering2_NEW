@@ -27,5 +27,13 @@ namespace TestProject
             _uut = new DisplaySimulator();
         }
 
+        [Test]
+        public void test_showAddPhone_whenIsReady()
+        {
+            _uut.IsReady();
+
+            Assert.That();
+        }
+
     }
 }
