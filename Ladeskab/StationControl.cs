@@ -27,10 +27,13 @@ namespace Ladeskab
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
-        StationControl()
+        public StationControl()
         {
             _state = LadeskabState.Available;
         }
+        
+        
+        
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
         {
@@ -82,37 +85,6 @@ namespace Ladeskab
                         _display.RFIDError();
                     }
 
-                    break;
-            }
-        }
-
-        public void DoorState()
-        {
-            switch (_state)
-            {
-                case LadeskabState.DoorOpen:
-                    _display.IsReady();
-                    break;
-                case LadeskabState.Available:
-                    _display.PresentRFID();
-                    break;
-                case LadeskabState.Locked:
-                    _display.IsCharging();
-                    break;
-            }
-        }
-
-        public void ChargeState()
-        {
-            switch (_state)
-            {
-                case LadeskabState.DoorOpen:
-                    _charger.StopCharge();
-                    break;
-                case LadeskabState.Locked:
-                    _charger.StartCharge();
-                    break;
-                case LadeskabState.Available:
                     break;
             }
         }
