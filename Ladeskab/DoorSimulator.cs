@@ -8,7 +8,7 @@ namespace Ladeskab
         {
             Console.WriteLine("Door Unlocked");
         }
-        public void Locked()
+        public void LockDoor()
         {
             Console.WriteLine("Door locked");
         }
