@@ -4,8 +4,7 @@ namespace Ladeskab
 {
     public class DoorStateChangeEventArgs : EventArgs
     {
-        // Value in mA (milliAmpere)
-        public double Unlocked { set; get; }
+        public bool Unlocked { set; get; }
     }
 
     public interface IDoor
@@ -20,5 +19,6 @@ namespace Ladeskab
         {
             
         }
+
     }
 }
