@@ -27,14 +27,5 @@ namespace TestProject
             _uut = new DisplaySimulator();
         }
 
-        [Test]
-        public void ctor_IsConnected()
-        {
-
-            Assert.That();
-        }
-
-
-
     }
 }
