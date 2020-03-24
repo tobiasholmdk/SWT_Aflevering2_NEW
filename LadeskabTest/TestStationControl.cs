@@ -1,4 +1,4 @@
-using LadeskabSWT;
+/*using LadeskabSWT;
 using NUnit.Framework;
 
 namespace TestProject
@@ -31,4 +31,4 @@ namespace TestProject
     }
     
     
-}
+}*/
