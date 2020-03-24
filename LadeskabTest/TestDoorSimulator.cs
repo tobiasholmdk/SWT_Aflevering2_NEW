@@ -30,7 +30,6 @@ namespace TestProject
                 _myEventArgs = args;
             };
         }
-
         [Test]
         public void doNothing_TestNoEventsTriggered()
         {
@@ -38,28 +37,35 @@ namespace TestProject
         }
 
         [Test]
-        public void setNewDoorstate_TestEventTriggered()
+        public void setNewDoorstate_Opened_TestEventTriggered()
         {
-            _uut.SetDoorState(true);
+            _uut.DoorOpen();
+            Assert.That(_myEventArgs, Is.Not.Null);
+        }
+        [Test]
+        public void setNewDoorstate_Closed_TestEventTriggered()
+        {
+            _uut.DoorClosed();
             Assert.That(_myEventArgs, Is.Not.Null);
         }
 
         [Test]
-        public void testDoorLock()
+        public void doNothing_testDoorLock()
+        {
+            Assert.That(_uut._unlocked, Is.True);
+        }
+        [Test]
+        public void LockDoor_testDoorLock()
         {
             _uut.LockDoor();
-
             Assert.That(_uut._unlocked, Is.False);
 
         }
-
         [Test]
-        public void testDoorUnLock()
+        public void UnlockDoor_testDoorUnLock()
         {
             _uut.UnlockDoor();
-
             Assert.That(_uut._unlocked, Is.True);
-
         }
     }
 }

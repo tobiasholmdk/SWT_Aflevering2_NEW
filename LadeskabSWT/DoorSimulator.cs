@@ -1,13 +1,17 @@
 using System;
+using System.Threading;
 
 namespace LadeskabSWT
 {
     public class DoorSimulator : IDoor
     {
         public bool _unlocked { get; set; }
-        private bool _formerState;
         public event EventHandler<DoorStateChangeEventArgs> DoorStateChange;
         
+        public DoorSimulator()
+        {
+            _unlocked = true;
+        }
         public void UnlockDoor()
         {
             Console.WriteLine("Door Unlocked");
@@ -19,28 +23,38 @@ namespace LadeskabSWT
             Console.WriteLine("Door locked");
             _unlocked = false;
         }
-
-        public void SetDoorState(bool s)
+        
+        public void DoorOpen()
         {
-            switch (s)
-            {
-                case false:
-                    OnDoorClose(new DoorStateChangeEventArgs{Unlocked = s });
-                    break;
-                case true:
-                    OnDoorOpen(new DoorStateChangeEventArgs {Unlocked = s });
-                    break;
-            }
+            WhenDoorStateChange(new DoorStateChangeEventArgs() {Opened = true});
         }
-
-        private void OnDoorOpen(DoorStateChangeEventArgs e)
+        public void DoorClosed()
+        {
+            WhenDoorStateChange(new DoorStateChangeEventArgs() {Opened = false });
+        }
+        
+        private void WhenDoorStateChange(DoorStateChangeEventArgs e)
         {
             DoorStateChange?.Invoke(this, e);
         }
 
-        private void OnDoorClose(DoorStateChangeEventArgs e)
-        {
-            DoorStateChange?.Invoke(this, e);
-        }
+        //public void SetDoorState(bool s)
+        //{
+        //    switch (s)
+        //    {
+        //        case false:
+        //            OnDoorClose(new DoorStateChangeEventArgs{Unlocked = s});
+        //            break;
+        //        case true:
+        //            OnDoorOpen(new DoorStateChangeEventArgs {Unlocked = s });
+        //            break;
+        //    }
+        //}
+
+
+        //private void OnDoorOpen(DoorStateChangeEventArgs e)
+        //{
+        //    DoorStateChange?.Invoke(this, e);
+        //}
     }
 }
