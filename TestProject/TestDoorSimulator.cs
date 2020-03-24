@@ -56,7 +56,7 @@ namespace TestProject
         [Test]
         public void testDoorUnLock()
         {
-            _uut.UnLockDoor();
+            _uut.UnlockDoor();
 
             Assert.That(_uut._unlocked, Is.True);
 
