@@ -17,13 +17,16 @@ class Program
             bool finish = false;
             do
             {
-                IDoor door = new DoorSimulator();
+                DoorSimulator door = new DoorSimulator();
                 IRFIDReader rfidReader = new RFIDSimulator();
+                IDisplay disp = new DisplaySimulator();
+                IUsbCharger charger = new UsbChargerSimulator();
+                StationControl sC = new StationControl(disp,door,rfidReader,charger);
                 string input;
                 System.Console.WriteLine("Indtast E, O, C, R: ");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
-
+                charger.StartCharge();
                 switch (input[0])
                 {
                     case 'E':
@@ -31,11 +34,11 @@ class Program
                         break;
 
                     case 'O':
-                        door.LockDoor();
+                        door.SetDoorState(true);
                         break;
 
                     case 'C':
-                        door.UnlockDoor();
+                        door.SetDoorState(false);
                         break;
 
                     case 'R':

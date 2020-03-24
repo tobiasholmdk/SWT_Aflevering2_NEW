@@ -22,15 +22,16 @@ namespace Ladeskab
 
         public void SetDoorState(bool s)
         {
-            if (s == false)
+            switch (s)
             {
-                OnDoorClose(new DoorStateChangeEventArgs{Unlocked = s});
-                _formerState = s;
-            }
-            else if (s == true)
-            {
-                OnDoorOpen(new DoorStateChangeEventArgs { Unlocked = s });
-                _formerState = s;
+                case false:
+                    OnDoorClose(new DoorStateChangeEventArgs{Unlocked = s});
+                    _formerState = s;
+                    break;
+                case true:
+                    OnDoorOpen(new DoorStateChangeEventArgs {Unlocked = s });
+                    _formerState = s;
+                    break;
             }
         }
 
