@@ -4,7 +4,7 @@ namespace Ladeskab
 {
     public class DoorSimulator : IDoor
     {
-        private bool _unlocked { get; set; }
+        public bool _unlocked { get; set; }
         private bool _formerState;
         public event EventHandler<DoorStateChangeEventArgs> DoorStateChange;
         
