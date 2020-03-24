@@ -13,7 +13,10 @@ namespace TestProject
         [SetUp]
         public void Setup()
         {
-
+            _door = new DoorSimulator();
         }
+
+        [Test]
+
     }
 }
