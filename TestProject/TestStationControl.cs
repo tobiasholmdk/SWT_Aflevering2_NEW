@@ -13,7 +13,7 @@ namespace TestProject
             [SetUp]
             public void Setup()
             {
-                _uut = new StationControl();
+            //    _uut = new StationControl();
             }
             
             [Test]

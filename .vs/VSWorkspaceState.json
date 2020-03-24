@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Ladeskab",
+    "\\TestProject"
   ],
+  "SelectedNode": "\\TestProject\\TestUsbChargerSimulator.cs",
   "PreviewInSolutionExplorer": false
 }

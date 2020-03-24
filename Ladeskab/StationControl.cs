@@ -1,90 +1,107 @@
-﻿﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using UsbSimulator;
 
 namespace Ladeskab
 {
     public class StationControl
     {
-        // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum LadeskabState
+        public enum LadeskabState
         {
             Available,
             Locked,
             DoorOpen
         };
 
-        // Her mangler flere member variable
-        private LadeskabState _state;
-        private IUsbCharger _charger;
+        public LadeskabState _state {get; private set;}
+        public int _oldId { get; private set; }
+
         private IDisplay _display;
-        private int _oldId;
-        private IDoor _door = new DoorSimulator();
+        private IDoor _door;
+        private IRFIDReader _RFIDReader;
+        private IUsbCharger _chargeControl;
 
-        private string logFile = "logfile.txt"; // Navnet på systemets log-fil
-
-        public StationControl()
+        public StationControl(IDisplay display, IDoor door, IRFIDReader RFIDReader, IUsbCharger chargeControl)
         {
+            _display = display;
+            _door = door;
+            _RFIDReader = RFIDReader;
+            _chargeControl = chargeControl;
+
             _state = LadeskabState.Available;
+
+            _door.DoorStateChange += HandleDoorStateChanged;
+            _RFIDReader.RFIDEvent += HandleRfidState;
         }
-        
-        
-        
-        // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
-        private void RfidDetected(int id)
+
+        private void HandleDoorStateChanged(Object s, DoorStateChangeEventArgs e)
+        {
+            switch (_state)
+            {
+                case LadeskabState.DoorOpen:
+                    if (!e.Unlocked)
+                    {
+                        _state = LadeskabState.Available;
+                        _display.IsCharging();
+                    }
+                    else
+                    { 
+                        _display.IsReady();
+                    }
+                    break;
+
+                case LadeskabState.Available:
+                    if (e.Unlocked)
+                    {
+                        _state = LadeskabState.DoorOpen;
+                        _display.IsReady();
+                    }
+                    else
+                    {
+                        _display.PresentRFID();
+                    }
+                    break;
+
+                case LadeskabState.Locked:
+                    break;
+
+            }
+        }
+
+        private void HandleRfidState(Object s, RfidEventArgs e)
         {
             switch (_state)
             {
                 case LadeskabState.Available:
-                    // Check for ladeforbindelse
-                    if (_charger.Connected)
+                    if (_chargeControl.Connected)
                     {
                         _door.LockDoor();
-                        _charger.StartCharge();
-                        _oldId = id;
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
-                        }
-
-                        Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+                        _oldId = e.ID;
                         _state = LadeskabState.Locked;
                         _display.IsCharging();
+                        _chargeControl.StartCharge();
                     }
                     else
                     {
                         _display.ChargeError();
                     }
-
                     break;
 
                 case LadeskabState.DoorOpen:
-                    // Ignore
+                    _display.IsReady();
                     break;
 
                 case LadeskabState.Locked:
-                    // Check for correct ID
-                    if (id == _oldId)
+                    if (e.ID == _oldId)
                     {
-                        _charger.StopCharge();
+                        _chargeControl.StopCharge();
                         _door.UnlockDoor();
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
-                        }
-
-                        Console.WriteLine("Tag din telefon ud af skabet og luk døren");
                         _state = LadeskabState.Available;
+                        _display.ChargeError();
                     }
                     else
                     {
                         _display.RFIDError();
                     }
-
                     break;
             }
         }
