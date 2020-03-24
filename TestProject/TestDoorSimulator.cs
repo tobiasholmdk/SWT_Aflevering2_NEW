@@ -31,35 +31,31 @@ namespace TestProject
             };
         }
 
-        [Test]
-        public void doNothing_TestNoEventsTriggered()
-        {
-            Assert.That(_myEventArgs, Is.Null);
-        }
+        //[Test]
+        //public void doNothing_TestNoEventsTriggered()
+        //{
+        //    Assert.That(_myEventArgs, Is.Null);
+        //}
 
-        [Test]
-        public void setNewDoorstate_TestEventTriggered()
-        {
-            _uut.SetDoorState(true);
-            Assert.That(_myEventArgs, Is.Not.Null);
-        }
+        //[Test]
+        //public void setNewDoorstate_TestEventTriggered()
+        //{
+        //    _uut.SetDoorState(true);
+        //    Assert.That(_myEventArgs, Is.Not.Null);
+        //}
 
         [Test]
         public void testDoorLock()
         {
             _uut.LockDoor();
-
             Assert.That(_uut._unlocked, Is.False);
 
         }
-
         [Test]
         public void testDoorUnLock()
         {
             _uut.UnlockDoor();
-
             Assert.That(_uut._unlocked, Is.True);
-
         }
     }
 }

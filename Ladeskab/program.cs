@@ -34,11 +34,11 @@ class Program
                         break;
 
                     case 'O':
-                        door.SetDoorState(true);
+                        //door.SetDoorState(true);
                         break;
 
                     case 'C':
-                        door.SetDoorState(false);
+                        //door.SetDoorState(false);
                         break;
 
                     case 'R':

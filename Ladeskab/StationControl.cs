@@ -38,7 +38,7 @@ namespace Ladeskab
             switch (_state)
             {
                 case LadeskabState.DoorOpen:
-                    if (!e.Unlocked)
+                    if (!e.Opened)
                     {
                         _state = LadeskabState.Available;
                         _display.IsCharging();
@@ -50,7 +50,7 @@ namespace Ladeskab
                     break;
 
                 case LadeskabState.Available:
-                    if (e.Unlocked)
+                    if (e.Opened)
                     {
                         _state = LadeskabState.DoorOpen;
                         _display.IsReady();
