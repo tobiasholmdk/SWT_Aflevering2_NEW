@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 
 namespace LadeskabSWT
 {
@@ -37,24 +36,5 @@ namespace LadeskabSWT
         {
             DoorStateChange?.Invoke(this, e);
         }
-
-        //public void SetDoorState(bool s)
-        //{
-        //    switch (s)
-        //    {
-        //        case false:
-        //            OnDoorClose(new DoorStateChangeEventArgs{Unlocked = s});
-        //            break;
-        //        case true:
-        //            OnDoorOpen(new DoorStateChangeEventArgs {Unlocked = s });
-        //            break;
-        //    }
-        //}
-
-
-        //private void OnDoorOpen(DoorStateChangeEventArgs e)
-        //{
-        //    DoorStateChange?.Invoke(this, e);
-        //}
     }
 }

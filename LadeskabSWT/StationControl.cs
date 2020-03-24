@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace LadeskabSWT
 {
@@ -18,6 +19,7 @@ namespace LadeskabSWT
         private IDoor _door;
         private IRFIDReader _RFIDReader;
         private IUsbCharger _chargeControl;
+        private string logFile = "logfile.txt";
 
         public StationControl(IDisplay display, IDoor door, IRFIDReader RFIDReader, IUsbCharger chargeControl)
         {
@@ -28,18 +30,18 @@ namespace LadeskabSWT
 
             _state = LadeskabState.Available;
 
-            _door.DoorStateChange += HandleDoorStateChanged;
-            _RFIDReader.RFIDEvent += HandleRfidState;
+            _door.DoorStateChange += DoorChangeHandler;
+            _RFIDReader.RFIDEvent += RfidDetected;
         }
 
-        private void HandleDoorStateChanged(Object s, DoorStateChangeEventArgs e)
+        private void DoorChangeHandler(Object o, DoorStateChangeEventArgs e)
         {
             switch (_state)
             {
                 case LadeskabState.DoorOpen:
                     if (!e.Opened)
                     {
-                        _state = LadeskabState.Available;
+                        _state = LadeskabState.Locked; //Her var available før
                         _display.IsCharging();
                     }
                     else
@@ -66,7 +68,7 @@ namespace LadeskabSWT
             }
         }
 
-        private void HandleRfidState(Object s, RfidEventArgs e)
+        private void RfidDetected(Object o, RfidEventArgs e)
         {
             switch (_state)
             {
@@ -75,6 +77,10 @@ namespace LadeskabSWT
                     {
                         _door.LockDoor();
                         _oldId = e.ID;
+                        using (var writer = File.AppendText(logFile))
+                        {
+                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", e.ID);
+                        }
                         _state = LadeskabState.Locked;
                         _display.IsCharging();
                         _chargeControl.StartCharge();
@@ -95,6 +101,10 @@ namespace LadeskabSWT
                         _chargeControl.StopCharge();
                         _door.UnlockDoor();
                         _display.IsCharged();
+                        using (var writer = File.AppendText(logFile))
+                        {
+                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", e.ID);
+                        }
                         _state = LadeskabState.Available;
                     }
                     else

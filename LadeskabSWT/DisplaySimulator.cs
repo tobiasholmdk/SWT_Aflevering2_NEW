@@ -19,7 +19,7 @@ namespace LadeskabSWT
         }
         public void IsCharging()
         {
-            Console.WriteLine("Ladeskab_APP optaget");
+            Console.WriteLine("Ladeskab optaget");
         }
         public void RFIDError()
         {
