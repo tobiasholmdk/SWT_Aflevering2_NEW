@@ -23,7 +23,7 @@ namespace LadeskabSWT
         }
         public void RFIDError()
         {
-            Console.WriteLine("RFID fejl");
+            Console.WriteLine("RFID fejl, Prøv igen");
         }
         public void IsCharged()
         {
