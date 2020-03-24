@@ -5,7 +5,6 @@ namespace Ladeskab
     public class RFIDSimulator : IRFIDReader
     {
         public event EventHandler<RfidEventArgs> RFIDEvent;
-        public int ID { get; set; }
         public void RfidDetected(int id)
         {
             OnReadRFID(new RfidEventArgs{ID = id});
