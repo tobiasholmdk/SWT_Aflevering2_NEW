@@ -43,5 +43,23 @@ namespace TestProject
             _uut.SetDoorState(true);
             Assert.That(_myEventArgs, Is.Not.Null);
         }
+
+        [Test]
+        public void testDoorLock()
+        {
+            _uut.LockDoor();
+
+            Assert.That(_uut._unclocked, Is.False);
+
+        }
+
+        [Test]
+        public void testDoorUnLock()
+        {
+            _uut.UnLockDoor();
+
+            Assert.That(_uut._unclocked, Is.True);
+
+        }
     }
 }
