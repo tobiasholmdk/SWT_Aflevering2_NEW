@@ -25,12 +25,10 @@ namespace Ladeskab
             switch (s)
             {
                 case false:
-                    OnDoorClose(new DoorStateChangeEventArgs{Unlocked = s});
-                    _formerState = s;
+                    OnDoorClose(new DoorStateChangeEventArgs{Unlocked = s });
                     break;
                 case true:
                     OnDoorOpen(new DoorStateChangeEventArgs {Unlocked = s });
-                    _formerState = s;
                     break;
             }
         }
