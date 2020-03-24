@@ -41,7 +41,7 @@ namespace LadeskabSWT
                 case LadeskabState.DoorOpen:
                     if (!e.Opened)
                     {
-                        _state = LadeskabState.Available;
+                        _state = LadeskabState.Locked; //Her var available før
                         _display.IsCharging();
                     }
                     else
