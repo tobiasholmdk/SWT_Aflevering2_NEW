@@ -1,4 +1,4 @@
-using Ladeskab;
+using LadeskabSWT;
 using NUnit.Framework;
 
 namespace TestProject

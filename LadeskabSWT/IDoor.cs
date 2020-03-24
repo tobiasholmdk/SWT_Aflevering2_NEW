@@ -1,6 +1,6 @@
 using System;
 
-namespace Ladeskab
+namespace LadeskabSWT
 {
     public class DoorStateChangeEventArgs : EventArgs
     {

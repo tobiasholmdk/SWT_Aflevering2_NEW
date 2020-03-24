@@ -1,7 +1,6 @@
 ﻿using System;
-using UsbSimulator;
 
-namespace Ladeskab
+namespace LadeskabSWT
 {
     public class StationControl
     {
@@ -95,8 +94,8 @@ namespace Ladeskab
                     {
                         _chargeControl.StopCharge();
                         _door.UnlockDoor();
+                        _display.IsCharged();
                         _state = LadeskabState.Available;
-                        _display.ChargeError();
                     }
                     else
                     {

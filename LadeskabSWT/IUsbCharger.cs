@@ -1,6 +1,6 @@
 ﻿﻿using System;
 
-namespace UsbSimulator
+namespace LadeskabSWT
 {
     public class CurrentEventArgs : EventArgs
     {
