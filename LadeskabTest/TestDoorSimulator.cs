@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LadeskabSWT;
-using NUnit.Framework;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using LadeskabSWT;
 using NUnit.Framework;
 
 namespace TestProject
@@ -19,6 +8,7 @@ namespace TestProject
         private DoorSimulator _uut;
         private DoorStateChangeEventArgs _myEventArgs;
 
+        #region Setup
         [SetUp]
         public void Setup()
         {
@@ -30,25 +20,9 @@ namespace TestProject
                 _myEventArgs = args;
             };
         }
-        [Test]
-        public void doNothing_TestNoEventsTriggered()
-        {
-            Assert.That(_myEventArgs, Is.Null);
-        }
-
-        [Test]
-        public void setNewDoorstate_Opened_TestEventTriggered()
-        {
-            _uut.DoorOpen();
-            Assert.That(_myEventArgs, Is.Not.Null);
-        }
-        [Test]
-        public void setNewDoorstate_Closed_TestEventTriggered()
-        {
-            _uut.DoorClosed();
-            Assert.That(_myEventArgs, Is.Not.Null);
-        }
-
+        #endregion
+        
+        #region testDoorLock
         [Test]
         public void doNothing_testDoorLock()
         {
@@ -67,5 +41,28 @@ namespace TestProject
             _uut.UnlockDoor();
             Assert.That(_uut._unlocked, Is.True);
         }
+        #endregion
+
+        #region Events
+        [Test]
+        public void doNothing_TestNoEventsTriggered()
+        {
+            Assert.That(_myEventArgs, Is.Null);
+        }
+
+        [Test]
+        public void setNewDoorstate_Opened_TestEventTriggered()
+        {
+            _uut.DoorOpen();
+            Assert.That(_myEventArgs, Is.Not.Null);
+        }
+        [Test]
+        public void setNewDoorstate_Closed_TestEventTriggered()
+        {
+            _uut.DoorClosed();
+            Assert.That(_myEventArgs, Is.Not.Null);
+        }
+        #endregion
+
     }
 }
