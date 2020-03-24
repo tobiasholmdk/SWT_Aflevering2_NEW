@@ -12,12 +12,26 @@ namespace Ladeskab
         {
             Console.WriteLine("Door Unlocked");
             _unlocked = true;
-
         }
+
         public void LockDoor()
         {
             Console.WriteLine("Door locked");
             _unlocked = false;
+        }
+
+        public void SetDoorState(bool s)
+        {
+            if (s == false)
+            {
+                OnDoorClose(new DoorStateChangeEventArgs{Unlocked = s});
+                _formerState = s;
+            }
+            else if (s == true)
+            {
+                OnDoorOpen(new DoorStateChangeEventArgs { Unlocked = s });
+                _formerState = s;
+            }
         }
 
         private void OnDoorOpen(DoorStateChangeEventArgs e)
