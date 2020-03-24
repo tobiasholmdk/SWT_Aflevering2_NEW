@@ -1,8 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ladeskab", "Ladeskab\Ladeskab.csproj", "{D86DC992-1679-4F11-AAFC-040DDF6833D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ladeskab_APP", "Ladeskab_APP\Ladeskab_APP.csproj", "{D86DC992-1679-4F11-AAFC-040DDF6833D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{BBF04242-3A2D-47FC-B2CF-83FD2FE0B0E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LadeskabTest", "LadeskabTest\LadeskabTest.csproj", "{BBF04242-3A2D-47FC-B2CF-83FD2FE0B0E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LadeskabSWT", "LadeskabSWT\LadeskabSWT.csproj", "{5DC25529-5E03-441C-9415-DFC3AE3A25CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{BBF04242-3A2D-47FC-B2CF-83FD2FE0B0E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBF04242-3A2D-47FC-B2CF-83FD2FE0B0E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBF04242-3A2D-47FC-B2CF-83FD2FE0B0E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DC25529-5E03-441C-9415-DFC3AE3A25CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DC25529-5E03-441C-9415-DFC3AE3A25CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DC25529-5E03-441C-9415-DFC3AE3A25CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DC25529-5E03-441C-9415-DFC3AE3A25CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Ladeskab
+namespace LadeskabSWT
 {
     public class DisplaySimulator : IDisplay
     {
@@ -19,7 +19,7 @@ namespace Ladeskab
         }
         public void IsCharging()
         {
-            Console.WriteLine("Ladeskab optaget");
+            Console.WriteLine("Ladeskab_APP optaget");
         }
         public void RFIDError()
         {
