@@ -33,8 +33,8 @@ namespace TestProject
             [Test]
             public void TestStateAvailable()
             {
-                /*_uut
-                Assert.That(_uut);*/
+                _uut
+                Assert.That(_uut);
             }
         }
     }
