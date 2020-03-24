@@ -13,14 +13,15 @@ class Program
         static void Main(string[] args)
         {
 				// Assemble your system here from all the classes
-                bool finish = false;
-            do
-            {
                 DoorSimulator door = new DoorSimulator();
                 IRFIDReader rfidReader = new RFIDSimulator();
                 IDisplay disp = new DisplaySimulator();
                 IUsbCharger charger = new UsbChargerSimulator();
                 StationControl sC = new StationControl(disp,door,rfidReader,charger);
+                bool finish = false;
+            do
+            {
+              
                 string input;
                 System.Console.WriteLine("Indtast E, O, C, R: ");
                 input = Console.ReadLine();
@@ -33,11 +34,11 @@ class Program
                         break;
 
                     case 'O':
-                        //door.SetDoorState(true);
+                        door.SetDoorState(true);
                         break;
 
                     case 'C':
-                        //door.SetDoorState(false);
+                        door.SetDoorState(false);
                         break;
 
                     case 'R':
