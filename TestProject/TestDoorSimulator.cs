@@ -49,7 +49,7 @@ namespace TestProject
         {
             _uut.LockDoor();
 
-            Assert.That(_uut._unclocked, Is.False);
+            Assert.That(_uut._unlocked, Is.False);
 
         }
 
@@ -58,7 +58,7 @@ namespace TestProject
         {
             _uut.UnLockDoor();
 
-            Assert.That(_uut._unclocked, Is.True);
+            Assert.That(_uut._unlocked, Is.True);
 
         }
     }
