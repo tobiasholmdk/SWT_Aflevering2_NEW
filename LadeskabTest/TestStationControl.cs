@@ -74,8 +74,26 @@ namespace TestProject
             #endregion
 
             #region oldId
+            
+            [Test]
+            public void doNothing_testDefaultOldId()
+            {
+                Assert.That(_uut._oldId, Is.EqualTo(0));
+            }
 
-
+            [Test]
+            public void setIdTo9942_testOldIdIsNotEqualToDefault0()
+            {
+                _uut._oldId = 9942;
+                Assert.That(_uut._oldId, Is.Not.EqualTo(0));
+            }
+            
+            [Test]
+            public void setIdTo9942_testOldIdIsEqualTo9942()
+            {
+                _uut._oldId = 9942;
+                Assert.That(_uut._oldId, Is.EqualTo(9942));
+            }
 
             #endregion
 
