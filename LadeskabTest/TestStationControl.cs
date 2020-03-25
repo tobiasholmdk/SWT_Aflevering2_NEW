@@ -16,7 +16,7 @@ namespace TestProject
             private IDoor _door;
             private IRFIDReader _rfidReader;
             private IUsbCharger _usbCharger;
-          
+
 
             [SetUp]
             public void Setup()
@@ -152,10 +152,20 @@ namespace TestProject
                 _display.DidNotReceive().ChargeError();
                 Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Locked));
             }
+            
+            [TestCase(123)]
+            public void RFID_AvaliableElseTest(int testID)
+            {
+                _usbCharger.Connected.Returns(false);
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
+                _display.Received().ChargeError();
+            }
+
             [TestCase(123)]
             public void RFID_LockedTestCorrectID(int testID)
             {
                 _usbCharger.Connected.Returns(true);
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
                 _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
                 _door.Received().UnlockDoor();
                 _usbCharger.Received().StopCharge();
@@ -163,7 +173,23 @@ namespace TestProject
                 Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Available));
                 Assert.That(_uut._oldId, Is.EqualTo(testID));
             }
+            
+            [TestCase(123,124)]
+            public void RFID_LockedTestCorrectID(int testID, int wrongID)
+            {
+                _usbCharger.Connected.Returns(true);
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = wrongID});
+                _display.Received().RFIDError();
+            }
 
+            [TestCase(123)]
+            public void RFID_DoorOpenStateTest(int testID)
+            {
+                _uut._state = StationControl.LadeskabState.DoorOpen;
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
+                _display.IsReady();
+            }
             #endregion
 
         }
