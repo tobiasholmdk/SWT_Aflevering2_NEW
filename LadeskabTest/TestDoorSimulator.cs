@@ -1,6 +1,8 @@
 ﻿using LadeskabSWT;
 using NUnit.Framework;
 
+
+
 namespace TestProject
 {
     [TestFixture]
@@ -8,8 +10,7 @@ namespace TestProject
     {
         private DoorSimulator _uut;
         private DoorStateChangeEventArgs _myEventArgs;
-        
-        
+
 
         #region Setup
         [SetUp]
@@ -82,6 +83,5 @@ namespace TestProject
             Assert.That(_myEventArgs, Is.Not.Null);
         }
         #endregion
-
     }
 }
