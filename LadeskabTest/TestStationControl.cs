@@ -1,5 +1,7 @@
-/*using LadeskabSWT;
+using System.Runtime.CompilerServices;
+using LadeskabSWT;
 using NUnit.Framework;
+using NSubstitute;
 
 namespace TestProject
 {
@@ -19,9 +21,11 @@ namespace TestProject
             [SetUp]
             public void Setup()
             {
+                _display = Substitute.For<IDisplay>();
+                _door = Substitute.For<IDoor>();
+                _rfidReader = Substitute.For<IRFIDReader>();
+                _usbCharger = Substitute.For<IUsbCharger>();
                 _uut = new StationControl(_display, _door, _rfidReader, _usbCharger);
-
-
             }
             
             [Test]
@@ -33,11 +37,10 @@ namespace TestProject
             [Test]
             public void TestStateAvailable()
             {
-                _uut
                 Assert.That(_uut);
             }
         }
     }
     
     
-}*/
+}
