@@ -117,6 +117,25 @@ namespace TestProject
                 _display.Received().IsReady();
             }
 
+            [TestCase(true)]
+            public void DoorChangeHandler_StationIsAvailable_OpenedDoorEventRecieved(bool doorOpenedTest)
+            {
+                _door.DoorStateChange += Raise.EventWith(new DoorStateChangeEventArgs() { Opened = doorOpenedTest });
+                _display.Received().IsReady();
+                _uut._state = StationControl.LadeskabState.DoorOpen;
+            }
+
+            [TestCase(false)]
+            public void DoorChangeHandler_StationIsAvailable_ClosedDoorEventRecieved(bool doorOpenedTest)
+            {
+                _door.DoorStateChange += Raise.EventWith(new DoorStateChangeEventArgs() { Opened = doorOpenedTest });
+                _display.Received().PresentRFID();
+            }
+
+
+
+
+
             //[TestCase(null)]
             //public void DoorChangeHandler_DoorIsOpen_InvalidDoorEvent(bool doorOpenedTest)
             //{
