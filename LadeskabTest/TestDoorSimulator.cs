@@ -7,12 +7,13 @@ namespace TestProject
     {
         private DoorSimulator _uut;
         private DoorStateChangeEventArgs _myEventArgs;
+        private bool testBool = true;
+        
 
         #region Setup
         [SetUp]
         public void Setup()
         {
-            _myEventArgs = null;
             _uut = new DoorSimulator();
 
             _uut.DoorStateChange += (o, args) =>
@@ -40,6 +41,23 @@ namespace TestProject
         {
             _uut.UnlockDoor();
             Assert.That(_uut._unlocked, Is.True);
+        }
+
+        [Test]
+        public void TestDoorStateEventTrue()
+        {
+            _myEventArgs.Opened = true;
+            
+            Assert.That(_myEventArgs.Opened, Is.True);
+
+        }
+
+        [Test]
+        public void TestDoorStateEventFalse()
+        {
+            _myEventArgs.Opened = false;
+
+            Assert.That(_myEventArgs.Opened, Is.False);
         }
         #endregion
 
