@@ -16,8 +16,7 @@ namespace TestProject
             private IDoor _door;
             private IRFIDReader _rfidReader;
             private IUsbCharger _usbCharger;
-            private UsbChargerSimulator _simCharger;
-          
+
 
             [SetUp]
             public void Setup()
@@ -26,7 +25,6 @@ namespace TestProject
                 _door = Substitute.For<IDoor>();
                 _rfidReader = Substitute.For<IRFIDReader>();
                 _usbCharger = Substitute.For<IUsbCharger>();
-                _simCharger = Substitute.For<UsbChargerSimulator>();
                 _uut = new StationControl(_display, _door, _rfidReader, _usbCharger);
 
             }
@@ -122,7 +120,7 @@ namespace TestProject
             [TestCase(123)]
             public void RFID_AvaliableElseTest(int testID)
             {
-                _simCharger.SimulateConnected(false); 
+                _usbCharger.Connected.Returns(false);
                 _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
                 _display.Received().ChargeError();
             }
