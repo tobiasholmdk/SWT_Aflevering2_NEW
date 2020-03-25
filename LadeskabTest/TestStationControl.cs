@@ -70,7 +70,21 @@ namespace TestProject
                 _uut._state = StationControl.LadeskabState.Locked;
                 Assert.AreEqual(_uut._state, StationControl.LadeskabState.Locked);
             }
+            
+            [TestCase(123)]
+            
+            public void RFID_ChargingTest(int testID)
+            {
+                _usbCharger.Connected.Returns(true);
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
+                _door.Received().LockDoor();
+                _usbCharger.Received().StartCharge();
+                _display.Received().IsCharging();
+                Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Locked));
+                Assert.That(_uut._oldId, Is.EqualTo(testID));
+            }
         }
+        
     }
     
     
