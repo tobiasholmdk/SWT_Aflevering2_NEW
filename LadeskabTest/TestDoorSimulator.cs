@@ -1,14 +1,15 @@
 ﻿using LadeskabSWT;
 using NUnit.Framework;
 
+
+
 namespace TestProject
 {
     class TestDoorSimulator
     {
         private DoorSimulator _uut;
         private DoorStateChangeEventArgs _myEventArgs;
-        private bool testBool = true;
-        
+
 
         #region Setup
         [SetUp]
