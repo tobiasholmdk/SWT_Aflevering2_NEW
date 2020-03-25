@@ -34,11 +34,12 @@ namespace TestProject
                 Assert.Pass();
             }
 
+            /*
             [Test]
             public void TestStateAvailable()
             {
                 Assert.That(_uut);
-            }
+            }*/
         }
     }
     
