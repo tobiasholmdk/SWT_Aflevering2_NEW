@@ -120,7 +120,8 @@ namespace TestProject
             public void RFID_LockedTestCorrectID(int testID)
             {
                 _usbCharger.Connected.Returns(true);
-                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
+                _rfidReader.RFIDEvent += Raise.EventWith<RfidEventArgs>(new RfidEventArgs() {ID = testID});
+                _rfidReader.RFIDEvent += Raise.EventWith<RfidEventArgs>(new RfidEventArgs() {ID = testID});
                 _door.Received().UnlockDoor();
                 _usbCharger.Received().StopCharge();
                 _display.Received().IsCharged();
