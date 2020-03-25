@@ -14,13 +14,13 @@ namespace LadeskabSWT
         
         public void UnlockDoor()
         {
-            Console.WriteLine("Door Unlocked");
+            //Console.WriteLine("Door Unlocked");
             _unlocked = true;
         }
 
         public void LockDoor()
         {
-            Console.WriteLine("Door locked");
+            //Console.WriteLine("Door locked");
             _unlocked = false;
         }
         
