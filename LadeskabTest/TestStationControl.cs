@@ -30,7 +30,7 @@ namespace TestProject
                 _uut = new StationControl(_display, _door, _rfidReader, _usbCharger);
 
             }
-            //Blah placeholder
+            
 
             #region state
             [Test]
