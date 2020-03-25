@@ -122,7 +122,7 @@ namespace TestProject
             {
                 _door.DoorStateChange += Raise.EventWith(new DoorStateChangeEventArgs() { Opened = doorOpenedTest });
                 _display.Received().IsReady();
-                _uut._state = StationControl.LadeskabState.DoorOpen;
+                Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.DoorOpen));
             }
 
             [TestCase(false)]
