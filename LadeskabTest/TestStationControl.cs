@@ -36,7 +36,25 @@ namespace TestProject
             {
                 Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Available));
             }
-            
+
+            [Test]
+            public void SetStateDoorOpen_TestForDoorOpenState()
+            {
+                _uut._state = StationControl.LadeskabState.DoorOpen;
+                Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.DoorOpen));
+            }
+            [Test]
+            public void SetStateLocked_TestForLockedState()
+            {
+                _uut._state = StationControl.LadeskabState.Locked;
+                Assert.That(_uut._state, Is.Not.EqualTo(StationControl.LadeskabState.Available));
+            }
+
+            /*[Test]
+            public void DoorChange_TestForDoorOpen
+            {
+
+            }*/
         }
     }
     
