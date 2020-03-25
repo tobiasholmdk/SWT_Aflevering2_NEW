@@ -2,8 +2,6 @@ using System.Runtime.CompilerServices;
 using LadeskabSWT;
 using NUnit.Framework;
 using NSubstitute;
-using System;
-using NSubstitute.ReceivedExtensions;
 
 namespace TestProject
 {
@@ -73,19 +71,27 @@ namespace TestProject
             
             [TestCase(123)]
             
-            public void RFID_ChargingTest(int testID)
+            public void RFID_AvaliableTest(int testID)
             {
                 _usbCharger.Connected.Returns(true);
                 _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
                 _door.Received().LockDoor();
                 _usbCharger.Received().StartCharge();
                 _display.Received().IsCharging();
+                _display.DidNotReceive().ChargeError();
                 Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Locked));
+            }
+            [TestCase(123)]
+            public void RFID_LockedTestCorrectID(int testID)
+            {
+                _usbCharger.Connected.Returns(true);
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
+                _door.Received().UnlockDoor();
+                _usbCharger.Received().StopCharge();
+                _display.Received().IsCharged();
+                Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Available));
                 Assert.That(_uut._oldId, Is.EqualTo(testID));
             }
         }
-        
     }
-    
-    
 }
