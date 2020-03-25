@@ -18,8 +18,9 @@ namespace TestProject
             private IDoor _door;
             private IRFIDReader _rfidReader;
             private IUsbCharger _usbCharger;
-          
 
+            
+            #region Setup
             [SetUp]
             public void Setup()
             {
@@ -30,6 +31,7 @@ namespace TestProject
                 _uut = new StationControl(_display, _door, _rfidReader, _usbCharger);
 
             }
+            #endregion Setup
 
             [Test]
             public void DoNothing_TestForAvailableState()
@@ -50,9 +52,17 @@ namespace TestProject
                 Assert.That(_uut._state, Is.Not.EqualTo(StationControl.LadeskabState.Available));
             }
 
-            [Test]
+            /*[Test]
+            public void OldID_TestSet()
+            {
+                _uut._oldId =
+            }*/
+
+
+            /*[Test] //De bliver ikke testet korrekt
             public void DoorChange_TestForDoorOpen()
             {
+                _uut.DoorChange();
                 _uut._state = StationControl.LadeskabState.DoorOpen;
                 Assert.AreEqual(_uut._state, StationControl.LadeskabState.DoorOpen);
             }
@@ -69,7 +79,7 @@ namespace TestProject
             {
                 _uut._state = StationControl.LadeskabState.Locked;
                 Assert.AreEqual(_uut._state, StationControl.LadeskabState.Locked);
-            }
+            }*/
         }
     }
     
