@@ -150,7 +150,7 @@ namespace TestProject
             [Test]
             public void RFID_DoorOpenStateTest()
             {
-                _uut._state.Returns(StationControl.LadeskabState.DoorOpen);
+                _uut._state = StationControl.LadeskabState.DoorOpen;
                 _display.IsReady();
             }
             #endregion
