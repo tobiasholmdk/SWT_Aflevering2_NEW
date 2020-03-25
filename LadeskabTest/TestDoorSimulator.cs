@@ -47,18 +47,18 @@ namespace TestProject
         [Test]
         public void TestDoorStateEventTrue()
         {
-            _uut._unlocked = true;
+            _myEventArgs.Opened = true;
             
-            Assert.That(_uut._unlocked, Is.EqualTo(testBool));
+            Assert.That(_myEventArgs.Opened, Is.EqualTo(testBool));
 
         }
 
         [Test]
         public void TestDoorStateEventFalse()
         {
-            _uut._unlocked = false;
+            _myEventArgs.Opened = false;
 
-            Assert.That(_uut._unlocked, Is.Not.EqualTo(testBool));
+            Assert.That(_myEventArgs.Opened, Is.Not.EqualTo(testBool));
         }
         #endregion
 
