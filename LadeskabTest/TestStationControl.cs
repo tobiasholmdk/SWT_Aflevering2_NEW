@@ -147,10 +147,10 @@ namespace TestProject
                 _display.Received().RFIDError();
             }
 
-            [TestCase(true)]
-            public void RFID_DoorOpenStateTest(bool Doorstate)
+            [Test]
+            public void RFID_DoorOpenStateTest()
             {
-                _door.DoorStateChange += Raise.EventWith(new DoorStateChangeEventArgs() {Opened = Doorstate});
+                _uut._state.Returns(StationControl.LadeskabState.DoorOpen);
                 _display.IsReady();
             }
             #endregion
