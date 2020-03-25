@@ -14,7 +14,6 @@ namespace TestProject
         [SetUp]
         public void Setup()
         {
-            _myEventArgs = null;
             _uut = new DoorSimulator();
 
             _uut.DoorStateChange += (o, args) =>
