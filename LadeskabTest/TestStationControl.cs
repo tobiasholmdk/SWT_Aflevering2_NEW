@@ -36,7 +36,8 @@ namespace TestProject
             {
                 Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Available));
             }
-            
+
+
         }
     }
     
