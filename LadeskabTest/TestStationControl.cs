@@ -2,8 +2,6 @@ using System.Runtime.CompilerServices;
 using LadeskabSWT;
 using NUnit.Framework;
 using NSubstitute;
-using System;
-using NSubstitute.ReceivedExtensions;
 
 namespace TestProject
 {
@@ -72,11 +70,66 @@ namespace TestProject
                 _uut._state = StationControl.LadeskabState.Locked;
                 Assert.AreEqual(_uut._state, StationControl.LadeskabState.Locked);
             }
+            #endregion
+
+            #region oldId
+            
+            [Test]
+            public void doNothing_testDefaultOldId()
+            {
+                Assert.That(_uut._oldId, Is.EqualTo(0));
+            }
+
+            [Test]
+            public void setIdTo9942_testOldIdIsNotEqualToDefault0()
+            {
+                _uut._oldId = 9942;
+                Assert.That(_uut._oldId, Is.Not.EqualTo(0));
+            }
+            
+            [Test]
+            public void setIdTo9942_testOldIdIsEqualTo9942()
+            {
+                _uut._oldId = 9942;
+                Assert.That(_uut._oldId, Is.EqualTo(9942));
+            }
 
             #endregion
+
+            #region DoorChangeEvent
+
+
+
+            #endregion
+
+            #region RfidDetectedEvent
+
+            [TestCase(123)]
+            
+            public void RFID_AvaliableTest(int testID)
+            {
+                _usbCharger.Connected.Returns(true);
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
+                _door.Received().LockDoor();
+                _usbCharger.Received().StartCharge();
+                _display.Received().IsCharging();
+                _display.DidNotReceive().ChargeError();
+                Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Locked));
+            }
+            [TestCase(123)]
+            public void RFID_LockedTestCorrectID(int testID)
+            {
+                _usbCharger.Connected.Returns(true);
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
+                _door.Received().UnlockDoor();
+                _usbCharger.Received().StopCharge();
+                _display.Received().IsCharged();
+                Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Available));
+                Assert.That(_uut._oldId, Is.EqualTo(testID));
+            }
+
+            #endregion
+
         }
-        
     }
-    
-    
 }
