@@ -1,5 +1,4 @@
-﻿/*using NUnit.Framework;
-
+﻿using NUnit.Framework;
 
 using LadeskabSWT;
 using System.IO;
@@ -35,4 +34,3 @@ namespace TestProject
 
     }
 }
-*/
