@@ -16,6 +16,7 @@ namespace TestProject
             private IDoor _door;
             private IRFIDReader _rfidReader;
             private IUsbCharger _usbCharger;
+            private UsbChargerSimulator _simCharger;
           
 
             [SetUp]
@@ -25,6 +26,7 @@ namespace TestProject
                 _door = Substitute.For<IDoor>();
                 _rfidReader = Substitute.For<IRFIDReader>();
                 _usbCharger = Substitute.For<IUsbCharger>();
+                _simCharger = Substitute.For<UsbChargerSimulator>();
                 _uut = new StationControl(_display, _door, _rfidReader, _usbCharger);
 
             }
@@ -116,19 +118,43 @@ namespace TestProject
                 _display.DidNotReceive().ChargeError();
                 Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Locked));
             }
+            
+            [TestCase(123)]
+            public void RFID_AvaliableElseTest(int testID)
+            {
+                _simCharger.SimulateConnected(false); 
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
+                _display.Received().ChargeError();
+            }
+
             [TestCase(123)]
             public void RFID_LockedTestCorrectID(int testID)
             {
                 _usbCharger.Connected.Returns(true);
-                _rfidReader.RFIDEvent += Raise.EventWith<RfidEventArgs>(new RfidEventArgs() {ID = testID});
-                _rfidReader.RFIDEvent += Raise.EventWith<RfidEventArgs>(new RfidEventArgs() {ID = testID});
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
                 _door.Received().UnlockDoor();
                 _usbCharger.Received().StopCharge();
                 _display.Received().IsCharged();
                 Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Available));
                 Assert.That(_uut._oldId, Is.EqualTo(testID));
             }
+            
+            [TestCase(123,124)]
+            public void RFID_LockedTestCorrectID(int testID, int wrongID)
+            {
+                _usbCharger.Connected.Returns(true);
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
+                _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = wrongID});
+                _display.Received().RFIDError();
+            }
 
+            [TestCase(true)]
+            public void RFID_DoorOpenStateTest(bool Doorstate)
+            {
+                _door.DoorStateChange += Raise.EventWith(new DoorStateChangeEventArgs() {Opened = Doorstate});
+                _display.IsReady();
+            }
             #endregion
 
         }
