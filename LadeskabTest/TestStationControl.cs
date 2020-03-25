@@ -31,6 +31,7 @@ namespace TestProject
 
             }
 
+            #region state
             [Test]
             public void DoNothing_TestForAvailableState()
             {
@@ -70,6 +71,26 @@ namespace TestProject
                 _uut._state = StationControl.LadeskabState.Locked;
                 Assert.AreEqual(_uut._state, StationControl.LadeskabState.Locked);
             }
+            #endregion
+
+            #region oldId
+
+
+
+            #endregion
+
+            #region DoorChangeEvent
+
+
+
+            #endregion
+
+            #region RfidDetectedEvent
+
+
+
+            #endregion
+
         }
     }
     
