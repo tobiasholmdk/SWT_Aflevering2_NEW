@@ -132,29 +132,13 @@ namespace TestProject
                 _display.Received().PresentRFID();
             }
 
-
-
-
-
-            //[TestCase(null)]
-            //public void DoorChangeHandler_DoorIsOpen_InvalidDoorEvent(bool doorOpenedTest)
-            //{
-            //    _uut._state = StationControl.LadeskabState.DoorOpen;
-            //    _door.DoorStateChange += Raise.EventWith(new DoorStateChangeEventArgs() { Opened = doorOpenedTest });
-
-            //    _display.Received().IsReady();
-            //}
-
-
-
-
-
-
-
-
-
-
-
+            [Test]
+            public void DoorChangeHandler_StationIsLocked()
+            {
+                _uut._state = StationControl.LadeskabState.Locked;
+                _door.DoorStateChange += Raise.EventWith(new DoorStateChangeEventArgs() { Opened = true });
+                _display.Received().IsCharging();
+            }
             #endregion
 
             #region RfidDetectedEvent

@@ -107,6 +107,8 @@ namespace LadeskabSWT
                     break;
 
                 case LadeskabState.Locked:
+                    _display.IsCharging();
+                
                     break;
 
             }
