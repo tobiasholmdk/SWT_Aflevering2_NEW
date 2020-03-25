@@ -49,7 +49,7 @@ namespace TestProject
         {
             _myEventArgs.Opened = true;
             
-            Assert.That(_myEventArgs.Opened, Is.EqualTo(testBool));
+            Assert.That(_myEventArgs.Opened, Is.True);
 
         }
 
@@ -58,7 +58,7 @@ namespace TestProject
         {
             _myEventArgs.Opened = false;
 
-            Assert.That(_myEventArgs.Opened, Is.Not.EqualTo(testBool));
+            Assert.That(_myEventArgs.Opened, Is.False);
         }
         #endregion
 
