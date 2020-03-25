@@ -98,6 +98,42 @@ namespace TestProject
 
             #region DoorChangeEvent
 
+            [TestCase(false)]
+            public void DoorChangeHandler_DoorIsOpen_ClosedDoorEventRecieved(bool doorOpenedTest)
+            {
+                _uut._state = StationControl.LadeskabState.DoorOpen;
+                _door.DoorStateChange += Raise.EventWith(new DoorStateChangeEventArgs() {Opened = doorOpenedTest});
+
+                _display.Received().IsCharging();
+                Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Available));
+            }
+
+            [TestCase(true)]
+            public void DoorChangeHandler_DoorIsOpen_OpenedDoorEventRecieved(bool doorOpenedTest)
+            {
+                _uut._state = StationControl.LadeskabState.DoorOpen;
+                _door.DoorStateChange += Raise.EventWith(new DoorStateChangeEventArgs() { Opened = doorOpenedTest });
+
+                _display.Received().IsReady();
+            }
+
+            //[TestCase(null)]
+            //public void DoorChangeHandler_DoorIsOpen_InvalidDoorEvent(bool doorOpenedTest)
+            //{
+            //    _uut._state = StationControl.LadeskabState.DoorOpen;
+            //    _door.DoorStateChange += Raise.EventWith(new DoorStateChangeEventArgs() { Opened = doorOpenedTest });
+
+            //    _display.Received().IsReady();
+            //}
+
+
+
+
+
+
+
+
+
 
 
             #endregion
