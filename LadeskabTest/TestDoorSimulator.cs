@@ -3,11 +3,12 @@ using NUnit.Framework;
 
 namespace TestProject
 {
+    [TestFixture]
     class TestDoorSimulator
     {
         private DoorSimulator _uut;
         private DoorStateChangeEventArgs _myEventArgs;
-        private bool testBool = true;
+        
         
 
         #region Setup
