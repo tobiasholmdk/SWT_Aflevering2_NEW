@@ -72,6 +72,8 @@ namespace TestProject
                 _uut._state = StationControl.LadeskabState.Locked;
                 Assert.AreEqual(_uut._state, StationControl.LadeskabState.Locked);
             }
+
+            #endregion
         }
         
     }
