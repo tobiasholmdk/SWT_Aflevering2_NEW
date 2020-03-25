@@ -1,33 +1,33 @@
 @startuml
-actor Bruger
+actor User
 skinparam sequenceArrowThickness 1
 skinparam roundcorner 10
 skinparam maxmessagesize 125
 skinparam sequenceParticipant underline
 
-Bruger -> Door: User opens door
-Activate Bruger
-deActivate Bruger
+User -> Door: User opens door
+Activate User
+deActivate User
 Activate Door
 Door -> StationControl: DoorOpen()
 deactivate Door
 Activate StationControl
 StationControl -> Display: IsReady()
 Activate Display
-Display -> Bruger: Shows ready message
-Activate Bruger
+Display -> User: Shows ready message
+Activate User
 deactivate Display
 Activate USBCharger
-Bruger -> USBCharger: User Connects Phone
+User -> USBCharger: User Connects Phone
 USBCharger -> StationControl: Connected()
 deactivate USBCharger
-Bruger -> Door: User closes door
+User -> Door: User closes door
 Activate Door
 Door -> StationControl: DoorClosed()
 deactivate Door
-Display -> Bruger: Shows Present RFID Message
-Bruger -> RFIDReader: Scans RFID
-Deactivate Bruger
+Display -> User: Shows Present RFID Message
+User -> RFIDReader: Scans RFID
+Deactivate User
 Activate RFIDReader
 RFIDReader -> StationControl: RfidDetected()
 deactivate RFIDReader
@@ -40,11 +40,19 @@ deactivate Display
 StationControl -> USBCharger: StartCharge()
 Activate USBCharger
 deactivate USBCharger
-Bruger -> RFIDReader: Scans RFID
-Activate Bruger
+
+User -> RFIDReader: Scans RFID
+
+Activate User
+
 Activate RFIDReader
+
 RFIDReader -> StationControl: RfidDetected()
+alt Wrong RFID detected
 deactivate RFIDReader
+StationControl -> Display: RFIDError()
+Display -> User: Present RFID Error Message
+else Correct RFID detected
 StationControl -> USBCharger: StopCharge()
 Activate USBCharger
 deactivate USBCharger
@@ -54,8 +62,9 @@ deactivate Display
 StationControl -> Door: UnlockDoor()
 Activate Door
 deactivate StationControl
-Bruger -> Door: Opens Doors and takes phone
-deactivate Door
-deactivate Bruger
+User -> Door: Opens Doors and takes phone
 
+deactivate Door
+deactivate User
+end
 @enduml

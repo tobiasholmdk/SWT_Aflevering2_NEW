@@ -16,8 +16,7 @@ namespace TestProject
             private IDoor _door;
             private IRFIDReader _rfidReader;
             private IUsbCharger _usbCharger;
-
-
+            
             [SetUp]
             public void Setup()
             {
