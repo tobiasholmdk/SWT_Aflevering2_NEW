@@ -1,0 +1,61 @@
+@startuml
+actor Bruger
+skinparam sequenceArrowThickness 1
+skinparam roundcorner 10
+skinparam maxmessagesize 125
+skinparam sequenceParticipant underline
+
+Bruger -> Door: User opens door
+Activate Bruger
+deActivate Bruger
+Activate Door
+Door -> StationControl: DoorOpen()
+deactivate Door
+Activate StationControl
+StationControl -> Display: IsReady()
+Activate Display
+Display -> Bruger: Shows ready message
+Activate Bruger
+deactivate Display
+Activate USBCharger
+Bruger -> USBCharger: User Connects Phone
+USBCharger -> StationControl: Connected()
+deactivate USBCharger
+Bruger -> Door: User closes door
+Activate Door
+Door -> StationControl: DoorClosed()
+deactivate Door
+Display -> Bruger: Shows Present RFID Message
+Bruger -> RFIDReader: Scans RFID
+Deactivate Bruger
+Activate RFIDReader
+RFIDReader -> StationControl: RfidDetected()
+deactivate RFIDReader
+StationControl -> Door: LockDoor()
+Activate Door
+deactivate Door
+StationControl -> Display: IsCharging()
+Activate Display
+deactivate Display
+StationControl -> USBCharger: StartCharge()
+Activate USBCharger
+deactivate USBCharger
+Bruger -> RFIDReader: Scans RFID
+Activate Bruger
+Activate RFIDReader
+RFIDReader -> StationControl: RfidDetected()
+deactivate RFIDReader
+StationControl -> USBCharger: StopCharge()
+Activate USBCharger
+deactivate USBCharger
+StationControl -> Display: IsCharged()
+activate Display
+deactivate Display
+StationControl -> Door: UnlockDoor()
+Activate Door
+deactivate StationControl
+Bruger -> Door: Opens Doors and takes phone
+deactivate Door
+deactivate Bruger
+
+@enduml
