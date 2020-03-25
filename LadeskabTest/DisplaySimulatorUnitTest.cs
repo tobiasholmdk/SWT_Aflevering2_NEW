@@ -2,6 +2,8 @@
 
 
 using LadeskabSWT;
+using System.IO;
+using System;
 
 namespace TestProject
 {
@@ -17,19 +19,18 @@ namespace TestProject
             _uut = new DisplaySimulator();
         }
 
-        //[Test]
-        //public void test_showAddPhone_whenIsReady()
-        //{
-
-        //}
-        /*[Test]
-        public void Test_IsReady()
+        [Test]
+        public void ValidateConsoleOutput()
         {
-            string expectedMessage = "Tilslut telefon";
-            var actualMessage = _uut.IsReady();
-
-            Assert.AreEqual(actualMessage, expectedMessage);
-        }*/
+            using (StringWriter sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                _uut = new DisplaySimulator();
+                _uut.IsReady();
+                string expected = string.Format("Tilslut telefon{0}", Environment.NewLine);
+                Assert.AreEqual(expected, sw.ToString());
+            }
+        }
 
 
     }
