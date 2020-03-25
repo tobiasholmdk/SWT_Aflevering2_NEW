@@ -12,8 +12,8 @@ namespace LadeskabSWT
             DoorOpen
         };
 
-        private LadeskabState _state {get; set;}
-        private int _oldId { get; set; }
+        public LadeskabState _state {get; set;}
+        public int _oldId { get; set; }
         private IDisplay _display;
         private IDoor _door;
         private IRFIDReader _RFID;
@@ -31,7 +31,7 @@ namespace LadeskabSWT
             _door.DoorStateChange += DoorChange;
             _RFID.RFIDEvent += RfidDetected;
         }
-        private void RfidDetected(Object o, RfidEventArgs e)
+        public void RfidDetected(Object o, RfidEventArgs e)
         {
             switch (_state)
             {
@@ -78,7 +78,7 @@ namespace LadeskabSWT
             }
         }
         
-        private void DoorChange(Object o, DoorStateChangeEventArgs e)
+        public void DoorChange(Object o, DoorStateChangeEventArgs e)
         {
             switch (_state)
             {

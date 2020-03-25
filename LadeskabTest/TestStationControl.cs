@@ -2,6 +2,8 @@ using System.Runtime.CompilerServices;
 using LadeskabSWT;
 using NUnit.Framework;
 using NSubstitute;
+using System;
+using NSubstitute.ReceivedExtensions;
 
 namespace TestProject
 {
@@ -16,7 +18,7 @@ namespace TestProject
             private IDoor _door;
             private IRFIDReader _rfidReader;
             private IUsbCharger _usbCharger;
-            private StationControl.LadeskabState _state;
+          
 
             [SetUp]
             public void Setup()
@@ -26,19 +28,15 @@ namespace TestProject
                 _rfidReader = Substitute.For<IRFIDReader>();
                 _usbCharger = Substitute.For<IUsbCharger>();
                 _uut = new StationControl(_display, _door, _rfidReader, _usbCharger);
-            }
-            
-            [Test]
-            public void Test1()
-            {
-                Assert.Pass();
+
             }
 
             [Test]
-            public void TestStateAvailable()
+            public void DoNothing_TestForAvailableState()
             {
-                Assert.That(_uut);
+                Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Available));
             }
+            
         }
     }
     
