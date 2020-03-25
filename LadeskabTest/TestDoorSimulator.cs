@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 namespace TestProject
 {
+    [TestFixture]
     class TestDoorSimulator
     {
         private DoorSimulator _uut;
@@ -82,6 +83,5 @@ namespace TestProject
             Assert.That(_myEventArgs, Is.Not.Null);
         }
         #endregion
-
     }
 }
