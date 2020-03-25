@@ -11,15 +11,16 @@ namespace LadeskabSWT
         {
             _unlocked = true;
         }
+        
         public void UnlockDoor()
         {
-            Console.WriteLine("Door Unlocked");
+            //Console.WriteLine("Door Unlocked");
             _unlocked = true;
         }
 
         public void LockDoor()
         {
-            Console.WriteLine("Door locked");
+            //Console.WriteLine("Door locked");
             _unlocked = false;
         }
         
@@ -27,6 +28,7 @@ namespace LadeskabSWT
         {
             WhenDoorStateChange(new DoorStateChangeEventArgs() {Opened = true});
         }
+        
         public void DoorClosed()
         {
             WhenDoorStateChange(new DoorStateChangeEventArgs() {Opened = false });
