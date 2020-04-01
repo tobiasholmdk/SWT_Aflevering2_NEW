@@ -18,15 +18,16 @@ namespace LadeskabSWT
         private IDoor _door;
         private IRFIDReader _RFID;
         private IUsbCharger _charger;
-        private string logFile = "logfile.txt";
+        private ILog _log;
 
-        public StationControl(IDisplay display, IDoor door, IRFIDReader RFID, IUsbCharger charger)
+        public StationControl(IDisplay display, IDoor door, IRFIDReader RFID, IUsbCharger charger, ILog log)
         {
             _display = display;
             _door = door;
             _RFID = RFID;
             _charger = charger;
             _state = LadeskabState.Available;
+            _log = log; 
             
             _door.DoorStateChange += DoorChange;
             _RFID.RFIDEvent += RfidDetected;
@@ -40,10 +41,7 @@ namespace LadeskabSWT
                     {
                         _door.LockDoor();
                         _oldId = e.ID;
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", e.ID);
-                        }
+                        _log.LogLocked(e.ID);
                         _state = LadeskabState.Locked;
                         _display.IsCharging();
                         _charger.StartCharge();
@@ -64,10 +62,7 @@ namespace LadeskabSWT
                         _charger.StopCharge();
                         _door.UnlockDoor();
                         _display.IsCharged();
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", e.ID);
-                        }
+                        _log.LogUnLocked(e.ID);
                         _state = LadeskabState.Available;
                     }
                     else
