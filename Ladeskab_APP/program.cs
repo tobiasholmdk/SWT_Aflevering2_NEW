@@ -11,7 +11,8 @@ class Program
                 IRFIDReader rfidReader = new RFIDSimulator();
                 IDisplay disp = new DisplaySimulator();
                 IUsbCharger charger = new UsbChargerSimulator();
-                var sC = new StationControl(disp,door,rfidReader,charger);
+                ILog log = new LogSimulator();
+                var sC = new StationControl(disp,door,rfidReader,charger,log);
                 bool finish = false;
             do
             {

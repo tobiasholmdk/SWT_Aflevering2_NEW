@@ -16,7 +16,7 @@ namespace TestProject
             private IDoor _door;
             private IRFIDReader _rfidReader;
             private IUsbCharger _usbCharger;
-            
+            private ILog _log;
             [SetUp]
             public void Setup()
             {
@@ -24,7 +24,8 @@ namespace TestProject
                 _door = Substitute.For<IDoor>();
                 _rfidReader = Substitute.For<IRFIDReader>();
                 _usbCharger = Substitute.For<IUsbCharger>();
-                _uut = new StationControl(_display, _door, _rfidReader, _usbCharger);
+                _log = Substitute.For<ILog>();
+                _uut = new StationControl(_display, _door, _rfidReader, _usbCharger, _log);
 
             }
             
@@ -151,6 +152,7 @@ namespace TestProject
                 _door.Received().LockDoor();
                 _usbCharger.Received().StartCharge();
                 _display.Received().IsCharging();
+                _log.LogLocked(testID);
                 _display.DidNotReceive().ChargeError();
                 Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Locked));
             }
@@ -171,6 +173,7 @@ namespace TestProject
                 _rfidReader.RFIDEvent += Raise.EventWith(new RfidEventArgs() {ID = testID});
                 _door.Received().UnlockDoor();
                 _usbCharger.Received().StopCharge();
+                _log.Received().LogUnLocked(testID);
                 _display.Received().IsCharged();
                 Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Available));
                 Assert.That(_uut._oldId, Is.EqualTo(testID));
