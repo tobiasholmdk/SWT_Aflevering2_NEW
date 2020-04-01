@@ -4,12 +4,12 @@ namespace LadeskabSWT
     {
         public void LogLocked(int ID)
         {
-            throw new System.NotImplementedException();
+   
         }
 
         public void LogUnLocked(int ID)
         {
-            throw new System.NotImplementedException();
+     
         }
     }
 }
