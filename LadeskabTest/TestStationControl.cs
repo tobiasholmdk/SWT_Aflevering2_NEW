@@ -152,7 +152,7 @@ namespace TestProject
                 _door.Received().LockDoor();
                 _usbCharger.Received().StartCharge();
                 _display.Received().IsCharging();
-                _log.LogLocked(testID);
+                _log.Received().LogLocked(testID);
                 _display.DidNotReceive().ChargeError();
                 Assert.That(_uut._state, Is.EqualTo(StationControl.LadeskabState.Locked));
             }
